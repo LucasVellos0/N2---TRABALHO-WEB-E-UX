@@ -607,8 +607,67 @@
     });
   });
 
+  const telefoneInput = document.getElementById('telefone');
+
+  telefoneInput.addEventListener('input', () => {
+    let v = telefoneInput.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length <= 10) {
+      v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else {
+      v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    }
+    telefoneInput.value = v;
+  });
+
+  function showError(id, msg) {
+    const input = document.getElementById(id);
+    input.style.borderColor = '#e05252';
+    let err = input.parentElement.querySelector('.form-error');
+    if (!err) {
+      err = document.createElement('p');
+      err.className = 'form-error';
+      input.parentElement.appendChild(err);
+    }
+    err.textContent = msg;
+  }
+
+  function clearError(id) {
+    const input = document.getElementById(id);
+    input.style.borderColor = '';
+    const err = input.parentElement.querySelector('.form-error');
+    if (err) err.remove();
+  }
+
   document.getElementById('lumina-form').addEventListener('submit', function(e) {
     e.preventDefault();
+    let valid = true;
+
+    const nome = document.getElementById('nome').value.trim();
+    if (nome.replace(/\s/g, '').length < 10) {
+      showError('nome', 'O nome deve ter no mínimo 10 letras.');
+      valid = false;
+    } else {
+      clearError('nome');
+    }
+
+    const tel = document.getElementById('telefone').value.replace(/\D/g, '');
+    if (tel.length < 10 || tel.length > 11) {
+      showError('telefone', 'Informe um telefone válido com DDD. Ex: (47) 99999-0000');
+      valid = false;
+    } else {
+      clearError('telefone');
+    }
+
+    const email = document.getElementById('email').value.trim();
+    if (!email.includes('@') || !email.includes('.')) {
+      showError('email', 'Informe um e-mail válido com @.');
+      valid = false;
+    } else {
+      clearError('email');
+    }
+
+    if (!valid) return;
+
     const btn = this.querySelector('.form-submit');
     btn.textContent = '✓ Solicitação enviada!';
     btn.style.background = '#27c97f';
