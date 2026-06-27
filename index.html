@@ -76,6 +76,10 @@
       <span class="nav-logo-text">Lumina<span>Tech</span></span>
     </a>
     <div class="flex items-center gap-4">
+      <button class="dm-toggle" id="dmToggle" onclick="toggleDarkMode()" aria-label="Alternar modo sustentável" title="Modo Sustentável">
+        <span class="dm-icon" id="dmIcon">🌙</span>
+        <span class="dm-label" id="dmLabel">Modo Sustentável</span>
+      </button>
       <a href="#orcamento" class="btn btn-primary" id="nav-cta-btn">Solicitar Orçamento</a>
       <button class="nav-menu-btn" id="menuBtn" onclick="openSidebar()">
         <div class="nav-menu-lines">
@@ -477,7 +481,7 @@
           </div>
           <div class="form-group mb-5">
             <label class="form-label" for="email">E-mail *</label>
-            <input class="form-input" type="email" id="email" name="email" placeholder="joao@empresa.com.br" required />
+            <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com" required />
           </div>
           <div class="form-row grid grid-cols-2 gap-4">
             <div class="form-group mb-5">
@@ -673,6 +677,32 @@
     btn.style.background = '#27c97f';
     btn.disabled = true;
   });
+ let darkModeOn = false;
+
+function toggleDarkMode() {
+  darkModeOn = !darkModeOn;
+  document.body.classList.toggle('light-mode', darkModeOn);
+  const icon  = document.getElementById('dmIcon');
+  const label = document.getElementById('dmLabel');
+  const toast = document.getElementById('dm-toast');
+
+  if (darkModeOn) {
+    icon.textContent  = '☀️';
+    label.textContent = 'Modo Padrão';
+    showToast('🌿 Modo Sustentável ativado — interface de baixo consumo energético');
+  } else {
+    icon.textContent  = '🌙';
+    label.textContent = 'Modo Sustentável';
+    showToast('🌙 Modo padrão restaurado');
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('dm-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3200);
+}
 </script>
 </body>
 </html>

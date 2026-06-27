@@ -40,6 +40,49 @@ body::before {
   pointer-events: none;
   z-index: 1000;
 }
+body.light-mode {
+  --bg:      #f0f4f0;
+  --bg-2:    #e6ede6;
+  --bg-card: #ffffff;
+  --white:   #1a2a1a;
+  --muted:   #4a5a4a;
+  --border:  rgba(34,100,34,.18);
+  --gold:    #7a5c00;
+  --gold-lt: #a07800;
+  --gold-dim:#5a4400;
+}
+
+.dm-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+  white-space: nowrap;
+}
+body.light-mode #nav.scrolled {
+  background: rgba(240,244,240,.92);
+  border-bottom-color: rgba(34,100,34,.15);
+}
+body.light-mode .hero-bg {
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(140,190,40,.08), transparent 70%);
+}
+body.light-mode .hero-grid-lines {
+  background-image:
+    linear-gradient(rgba(34,100,34,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,100,34,.07) 1px, transparent 1px);
+}
+body.light-mode body::before { opacity: .015; }
+
 
 .container {
   max-width: var(--max);
@@ -60,6 +103,7 @@ body::before {
   text-transform: uppercase;
   color: var(--gold);
 }
+
 
 .section-title {
   font-family: var(--font-head);
@@ -92,6 +136,7 @@ body::before {
   transition: all .28s ease;
   border: none;
 }
+
 .btn-primary { background: var(--gold); color: #050810; }
 .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,146,42,.35); }
 .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border); }
